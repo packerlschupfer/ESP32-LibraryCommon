@@ -1,0 +1,20 @@
+{
+    "name": "ESP32-LibraryCommon",
+    "version": "0.1.0",
+    "description": "Common utilities and error handling for embedded C++ projects - Result<T> type and error codes",
+    "keywords": ["cpp", "error-handling", "result-type", "embedded", "utilities", "freertos", "esp32"],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/packerlschupfer/ESP32-LibraryCommon.git"
+    },
+    "authors": [
+        {
+            "name": "packerlschupfer",
+            "email": "packerlschupfer@noreply.github.com"
+        }
+    ],
+    "license": "GPL-3",
+    "frameworks": ["arduino", "espidf"],
+    "platforms": ["espressif32"],
+    "headers": ["Result.h", "ErrorCodes.h"]
+}
