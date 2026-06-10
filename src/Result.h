@@ -331,4 +331,37 @@ Result<T, E> makeError(E error) {
     return Result<T, E>::error(error);
 }
 
+/**
+ * @brief Type-erased error carrier that converts to any Result<T, E>
+ *
+ * Returned by makeErrorAny() / used by the RETURN_* macros so that an error
+ * can be returned from a function regardless of the success type of its
+ * Result return type. The implicit conversion operator deduces the concrete
+ * Result type at the return site.
+ */
+template<typename E>
+struct ErrorResult {
+    E error;
+
+    template<typename T>
+    operator Result<T, E>() const noexcept {
+        return Result<T, E>::error(error);
+    }
+
+    operator Result<void, E>() const noexcept {
+        return Result<void, E>::error(error);
+    }
+};
+
+/**
+ * @brief Create a type-erased error that converts to any Result<T, E>
+ * @tparam E Error type
+ * @param error The error code
+ * @return ErrorResult convertible to any Result with error type E
+ */
+template<typename E = ErrorCode>
+ErrorResult<E> makeErrorAny(E error) noexcept {
+    return ErrorResult<E>{error};
+}
+
 } // namespace common
