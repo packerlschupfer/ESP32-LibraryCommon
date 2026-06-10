@@ -30,7 +30,7 @@
     do { \
         auto _result = (expr); \
         if (!_result) { \
-            return _result; \
+            return ::common::makeErrorAny(_result.error()); \
         } \
     } while (0)
 
@@ -49,7 +49,7 @@
 #define RETURN_ERROR_IF(condition, error) \
     do { \
         if (condition) { \
-            return decltype(error)::error(error); \
+            return ::common::makeErrorAny(error); \
         } \
     } while (0)
 
@@ -68,7 +68,7 @@
 #define ASSIGN_OR_RETURN(var, expr) \
     auto _temp_result_##__LINE__ = (expr); \
     if (!_temp_result_##__LINE__) { \
-        return decltype(_temp_result_##__LINE__)::error(_temp_result_##__LINE__.error()); \
+        return ::common::makeErrorAny(_temp_result_##__LINE__.error()); \
     } \
     var = std::move(_temp_result_##__LINE__).value()
 
